@@ -4,13 +4,13 @@ read USER
 
 mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password << EOF
 
-CREATE DATABASE testDB;
+CREATE DATABASE TestDB;
 
 EOF
 
-mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password testDB < /stornext/HPCScratch/lab_bahlo/MySQL_test/databases/TestDB.sql 
+mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password TestDB < /stornext/HPCScratch/lab_bahlo/MySQL_test/databases/TestDB.sql 
 
-mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password testDB << EOF
+mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password TestDB << EOF
 
 INSERT INTO \`geneticdata\` (\`marker\`,\`genotype\`,\`chr\`) VALUES (1,1,'chr1');
 
