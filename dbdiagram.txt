@@ -1,0 +1,60 @@
+Table samples as S {
+  sampleID int //unique - key for different table?
+  famID int // same as pedigree ID
+  individualID varchar
+  fatherID int
+  motherID int
+  gender int
+  affected int
+  haplotype int
+  ethnicity varchar
+  mutation varchar  // RE etc.
+  validation varchar // notes column
+  labID varchar // source, ERD?
+  datatype varchar // SNPchip, WGS, WES etc
+}
+// move anything not part of default pedigree columns to the bottom
+
+Table geneticmarkers as M {
+  markerID int
+  markername varchar
+  chr varchar
+  positionBP int 
+  //positioncM int
+  REF varchar
+  ALT varchar
+  markertype varchar // SNP, STR, indels etc.
+}
+// starting with SNPs - WGS
+
+Table pathogenicmutations as P {
+  ID int // pedigrees RE?
+  gene varchar
+  motif varchar
+  disease varchar
+  diseasemodel varchar // recessive or dominant? from OMIMID
+  positionBP int
+  region varchar // coding, UTR etc.
+  //positioncM int
+  OMIMID varchar // in exSTRa
+}
+
+Table geneticdata as D {
+  //vcfID varchar // or import data directly
+  // hg19 or hg38? or both
+  marker int // reference SNPID
+  genotype int
+  chr varchar
+}
+// two separate tables for vcf??
+
+// separate table with individual IDs?
+
+//Ref: P."individualID" - G."vcfID"
+Ref: S."mutation" - P."ID"
+Ref: M."markerID" - D."marker"
+Ref: S."haplotype" - D."genotype"
+Ref: M."chr" - D."chr"
+
+// pre-processing - imputation?
+
