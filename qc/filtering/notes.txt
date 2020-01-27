@@ -1,0 +1,4 @@
+Strict vs lenient filtering
+- Clustering of errors will disrupt the model
+
+GATK best practices - hard filtering?
