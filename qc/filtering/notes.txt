@@ -2,3 +2,8 @@ Strict vs lenient filtering
 - Clustering of errors will disrupt the model
 
 GATK best practices - hard filtering?
+See https://gatk.broadinstitute.org/hc/en-us/articles/360035531112?id=23216
+
+Converting GATK docker image to singularity image:
+singularity build gatk.sif docker://broadinstitute/gatk:latest
+v. 4.1.4.1 (dl in Jan)

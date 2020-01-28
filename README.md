@@ -1,7 +1,9 @@
 # 2020
 Research assistant documentation
 
-TO DO - as of 24 Jan
+TO DO - as of 28 Jan
+- Test GATK best practices filtering
+as of 24 Jan
 - Outline key steps in QC and pre-processing of data
 - Attempt to access data
 - Ask Haloom and Liam about their data
