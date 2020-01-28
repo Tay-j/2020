@@ -7,3 +7,5 @@ See https://gatk.broadinstitute.org/hc/en-us/articles/360035531112?id=23216
 Converting GATK docker image to singularity image:
 singularity build gatk.sif docker://broadinstitute/gatk:latest
 v. 4.1.4.1 (dl in Jan)
+- Files must be gzipped (bgzip [file]) & indexed created using tabix, before filtering
+- Created a gatk.sh script to run Singularity instance of gatk + one various filtering functions

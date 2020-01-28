@@ -1,16 +1,18 @@
 echo Enter username:
-
 read USER
+
+echo Enter database name:
+read DATA
 
 mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password << EOF
 
-CREATE DATABASE TestDB;
+CREATE DATABASE ${DATA};
 
 EOF
 
-mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password TestDB < /stornext/HPCScratch/lab_bahlo/MySQL_test/databases/TestDB.sql 
+mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password ${DATA} < /stornext/HPCScratch/lab_bahlo/MySQL_test/databases/TestDB.sql 
 
-mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password TestDB << EOF
+mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password ${DATA} << EOF
 
 INSERT INTO \`geneticdata\` (\`marker\`,\`genotype\`,\`chr\`) VALUES (1,1,'chr1');
 
