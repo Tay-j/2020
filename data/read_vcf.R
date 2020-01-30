@@ -23,7 +23,7 @@ sampleID <- c(1:familysize) # unique
 famID <- c(rep(1,sum(pedFAME1up$Family=="SL")),rep(2,sum(pedFAME1up$Family=="Ind")))
 individualID <- c(1:uniquesize) # accounts for multiple samples
 fatherID <- sampleID[match(pedFAME1up$Father, pedFAME1up$Individual)] # Null instead of NA?
-motherID <- sampleID[match(pedFAME1up$Mother, pedFAME1up$Individual)] # Null instead of NA?
+motherID <- sampleID[match(pedFAME1up$Mother, pedFAME1up$Individual)]
 gender <- pedFAME1up$Sex
 affected <- pedFAME1up$Phenotype
 haplotype <- c(rep("xyz",familysize))
@@ -35,3 +35,29 @@ datatype <- c(rep("WGS",familysize))
 samples <- data.frame(sampleID,famID,individualID,fatherID,motherID,gender,affected,haplotype,ethnicity,mutation,validation,labID,datatype)
 write.table(samples, file = "samples.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
 
+markerID <- 
+markername <- 
+markerchr <- 
+markerpositionBP <- 
+REF <- 
+ALT <- 
+markertype <- 
+geneticmarkers <- data.frame(markerID,markername,markerchr,markerpositionBP,REF,ALT,markertype)
+write.table(samples, file = "geneticmarkers.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
+
+ID <- 
+gene <- 
+motif <- 
+disease <- 
+diseasemodel <-
+positionBP <- 
+region <- 
+OMIMID <- 
+pathogenicmutations <- data.frame(ID,gene,motif,disease,diseasemodel,positionBP,region,OMIMID)
+write.table(samples, file = "pathogenicmutations.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
+
+marker <- 
+genotype <- 
+chr <- 
+geneticdata <- data.frame(marker,genotype,chr)
+write.table(samples, file = "geneticdata.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
