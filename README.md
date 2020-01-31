@@ -1,9 +1,13 @@
 # 2020
 Research assistant documentation
 
-TO DO - as of 30 Jan
+TO DO - as of 31 Jan
+- Import markers// WIP
+- Import pathogenic mutations// DONE for FAME1
+
+As of 30 Jan
 - Import genetic data// WIP
-- Import samples data// DONE
+- Import samples data// DONE for FAME1
 
 As of 28 Jan
 - Test GATK best practices filtering// DONE - tested using MAF filter and SNP filter
