@@ -9,12 +9,16 @@ gtchr8 <- extract.gt(vcfchr8)
 for (colx in colnames(gt8)) {
   assign(colx,gt8[,colx])
 }
-vcfraw <- read.delim("/stornext/HPCScratch/lab_bahlo/MySQL_test/gatk/SL_IND_bisnps_maf.vcf", sep = "\t")
+#vcfraw <- read.delim("/stornext/HPCScratch/lab_bahlo/MySQL_test/gatk/SL_IND_bisnps_maf.vcf", sep = "\t")
 vcfFAME1up <- read.vcfR("/stornext/HPCScratch/lab_bahlo/MySQL_test/gatk/SL_IND_bisnps_maf.vcf", verbose = FALSE)
 gtFAME1up <- extract.gt(vcfFAME1up)
 write.table(gtFAME1up, file = "FAME1-MAF-filtered.txt", sep = "\t")
 #test <- read.delim(file = "FAME1-MAF-filtered.txt")
 pedFAME1up <- read.table("/wehisan/bioinf/lab_bahlo/projects/methods_dev/Haplotype_Dee/Data/FAME1/Details/FAME1_SL_Indian.ped", sep = "\t", col.names = c("Family","Individual","Father","Mother","Sex","Phenotype"), stringsAsFactors = FALSE)
+#mutations <- read.table('/wehisan/bioinf/lab_bahlo/users/tay.j/2020/data/REs/repeat_expansion_disorders_hg38.txt', sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+vcfFAME1p <- read.vcfR("/stornext/HPCScratch/lab_bahlo/MySQL_test/gatk/FAME1_chr8_phased_eagle.vcf", verbose = FALSE)
+gtFAME1p <- extract.gt(vcfFAME1p)
+
 
 familysize <- length(pedFAME1up$Family)
 uniquesize <- length(unique(pedFAME1up$Individual))
@@ -37,27 +41,54 @@ write.table(samples, file = "samples.txt", sep = "\t", col.names = FALSE, row.na
 
 markerID <- 
 markername <- 
-markerchr <- 
-markerpositionBP <- 
+markerchr <- "chr8"
+positionBP <- 
 REF <- 
 ALT <- 
-markertype <- 
+markertype <- "SNP"
 geneticmarkers <- data.frame(markerID,markername,markerchr,markerpositionBP,REF,ALT,markertype)
-write.table(samples, file = "geneticmarkers.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
+write.table(geneticmarkers, file = "geneticmarkers.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
 
-ID <- 
-gene <- 
-motif <- 
-disease <- 
-diseasemodel <-
-positionBP <- 
-region <- 
-OMIMID <- 
-pathogenicmutations <- data.frame(ID,gene,motif,disease,diseasemodel,positionBP,region,OMIMID)
-write.table(samples, file = "pathogenicmutations.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
+# from https://github.com/bahlolab/exSTRa development Bennett branch
 
-marker <- 
-genotype <- 
-chr <- 
-geneticdata <- data.frame(marker,genotype,chr)
-write.table(samples, file = "geneticdata.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
+ID <- 1
+gene <- "SAMD12"
+motif <- "TTTCA"
+disease <- "FAME1"
+diseasemodel <- "AD"
+startHG19 <- 119379052
+endHG19 <- 119379155
+startHG38 <- 118366813
+endHG38 <- 118366815
+region <- "intron"
+OMIMID <- 601068
+pathogenicmutations <- data.frame(ID,gene,motif,disease,diseasemodel,startHG19,endHG19,startHG38,endHG38,region,OMIMID)
+write.table(pathogenicmutations, file = "pathogenicmutations.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
+
+#marker <- rep(NA,0)
+#for (markerx in rownames(gtFAME1p)[1:2]) {
+#  marker <- append(marker,rep(markerx,familysize))
+#}
+marker <- rep(gtFAME1p[,1],familysize)
+#individual <- rep(sampleID[match(substr(colnames(gtFAME1p),1,10), pedFAME1up$Individual)],length(gtFAME1p))
+individual <- rep(NA,0)
+for (sample in sampleID[match(substr(colnames(gtFAME1p),1,10), pedFAME1up$Individual)]) {
+  individual <- append(individual,rep(sample,length(gtFAME1p[,1])))
+}
+genotype <- rep(NA,0)
+for (test in gtFAME1p) {
+  if (test == "0|0") {
+    genotype <- append(genotype,1)
+  }
+  else if (test == "0|1") {
+    genotype <- append(genotype,2)
+  }
+  else if (test == "1|0") {
+    genotype <- append(genotype,3)
+  }
+  else if (test == "1|1") {
+    genotype <- append(genotype,4)
+  }
+}
+geneticdata <- data.frame(marker,individual,genotype)
+write.table(geneticdata, file = "geneticdata.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
