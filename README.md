@@ -1,12 +1,16 @@
 # 2020
 Research assistant documentation
 
-TO DO - as of 31 Jan
+TO DO - as of 3 Feb
+- Attempt more families/variants
+- Complete import of markers
+
+As of 31 Jan
 - Import markers// WIP
 - Import pathogenic mutations// DONE for FAME1
 
 As of 30 Jan
-- Import genetic data// WIP
+- Import genetic data// DONE as of 3 Feb for FAME1
 - Import samples data// DONE for FAME1
 
 As of 28 Jan
