@@ -1,12 +1,15 @@
 # 2020
 Research assistant documentation
 
-TO DO - as of 3 Feb
-- Attempt more families/variants
-- Complete import of markers
+TO DO - as of 4 Feb
+- wait for Erandee to attempt database/model query & phasing more genomes
+
+As of 3 Feb
+- Attempt more families/variants // WIP
+- Complete import of markers // DONE
 
 As of 31 Jan
-- Import markers// WIP
+- Import markers// DONE for FAME1
 - Import pathogenic mutations// DONE for FAME1
 
 As of 30 Jan

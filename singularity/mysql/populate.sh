@@ -17,6 +17,8 @@ mysql -S ${PWD}/mysql/run/mysqld/mysqld.sock -u $USER --password=password ${DATA
 USE ${DATA};
 LOAD DATA LOCAL INFILE '/stornext/Home/data/allstaff/t/tay.j/2020/1000genomes/samples.txt'
 INTO TABLE samples;
+LOAD DATA LOCAL INFILE '/stornext/Home/data/allstaff/t/tay.j/2020/1000genomes/geneticmarkers.txt'
+INTO TABLE geneticmarkers;
 LOAD DATA LOCAL INFILE '/stornext/Home/data/allstaff/t/tay.j/2020/1000genomes/pathogenicmutations.txt'
 INTO TABLE pathogenicmutations;
 LOAD DATA LOCAL INFILE '/stornext/Home/data/allstaff/t/tay.j/2020/1000genomes/geneticdata.txt'

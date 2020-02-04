@@ -42,32 +42,34 @@ write.table(samples, file = "samples.txt", sep = "\t", col.names = FALSE, row.na
 ###
 
 ### generate dataframe/table for geneticmarkers in MySQL schema format
-markerID <- 
-markername <- 
-markerchr <- "chr8"
-positionBP <- 
-REF <- 
-ALT <- 
-markertype <- "SNP"
-geneticmarkers <- data.frame(markerID,markername,markerchr,markerpositionBP,REF,ALT,markertype)
+markerID <- c(1:length(gtFAME1p[,1]))
+markername <- getFIX(vcfFAME1p)[,3]
+markerchr <- paste(0,getFIX(vcfFAME1p)[,1],sep = "")
+positionBP <- as.integer(getFIX(vcfFAME1p)[,2])
+REF <- getFIX(vcfFAME1p)[,4]
+ALT <- getFIX(vcfFAME1p)[,5]
+#SNPs <- getFIX(vcfFAME1p)[,4] %in% c("A","T","C","G") & getFIX(vcfFAME1p)[,5] %in% c("A","T","C","G")
+markertype <- ifelse(getFIX(vcfFAME1p)[,4] %in% c("A","T","C","G") & getFIX(vcfFAME1p)[,5] %in% c("A","T","C","G"),"SNP","indel")
+geneticmarkers <- data.frame(markerID,markername,markerchr,positionBP,REF,ALT,markertype)
 write.table(geneticmarkers, file = "geneticmarkers.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
 ###
 
 # from https://github.com/bahlolab/exSTRa development Bennett branch
 
 ### generate dataframe/table for mutations in MySQL schema format
-ID <- 1
-gene <- "SAMD12"
-motif <- "TTTCA"
-disease <- "FAME1"
-diseasemodel <- "AD"
-startHG19 <- 119379052
-endHG19 <- 119379155
-startHG38 <- 118366813
-endHG38 <- 118366815
-region <- "intron"
-OMIMID <- 601068
-pathogenicmutations <- data.frame(ID,gene,motif,disease,diseasemodel,startHG19,endHG19,startHG38,endHG38,region,OMIMID)
+ID <- c(1,2)
+gene <- c("SAMD12","STARD7")
+motif <- c("TTTCA","TTTCA")
+disease <- c("FAME1","FAME2")
+diseasemodel <- c("AD","AD")
+chr <- c("chr8","chr2")
+startHG19 <- c(119379052,96862805)
+endHG19 <- c(119379155,96862807)
+startHG38 <- c(118366813,96197067)
+endHG38 <- c(118366815,96197069)
+region <- c("intron","intron")
+OMIMID <- c(601068,607876)
+pathogenicmutations <- data.frame(ID,gene,motif,disease,diseasemodel,chr,startHG19,endHG19,startHG38,endHG38,region,OMIMID)
 write.table(pathogenicmutations, file = "pathogenicmutations.txt", sep = "\t", col.names = FALSE, row.names = FALSE)
 ###
 
@@ -76,7 +78,8 @@ write.table(pathogenicmutations, file = "pathogenicmutations.txt", sep = "\t", c
 #for (markerx in rownames(gtFAME1p)[1:2]) {
 #  marker <- append(marker,rep(markerx,familysize))
 #}
-marker <- rep(gtFAME1p[,1],familysize)
+marker <- rownames(gtFAME1p)
+marker <- rep(markerID[match(marker,geneticmarkers$markername)],familysize)
 #individual <- rep(sampleID[match(substr(colnames(gtFAME1p),1,10), pedFAME1up$Individual)],length(gtFAME1p))
 individual <- rep(NA,0)
 for (sample in sampleID[match(substr(colnames(gtFAME1p),1,10), pedFAME1up$Individual)]) {
@@ -85,6 +88,6 @@ for (sample in sampleID[match(substr(colnames(gtFAME1p),1,10), pedFAME1up$Indivi
 gt_convert <- c("0|0" = 0, "0|1" = 1, "1|0" = 2, "1|1" = 3)
 genotype <- gt_convert[gtFAME1p]
 geneticdata <- data.frame(marker,individual,genotype)
+write.table(geneticdata, file = "geneticdata.txt", sep = "\t", col.names = FALSE, row.names = FALSE) # export into txt for further import
 ###
 
-write.table(geneticdata, file = "geneticdata.txt", sep = "\t", col.names = FALSE, row.names = FALSE) # export into txt for further import
